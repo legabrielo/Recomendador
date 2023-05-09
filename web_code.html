@@ -1,32 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
-	<meta charset="utf-8">
-	<title>Título de la página</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="ruta/a/tu/hoja/de/estilo.css">
+  <meta charset="UTF-8">
+  
+  <!-- Make it compatible to mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Recomendador Restaurantes</title>
+  
 </head>
-<body>
 
-	<header>
-		<h1>Encabezado de la página</h1>
-		<nav>
-			<ul>
-				<li><a href="#">Inicio</a></li>
-				<li><a href="#">Acerca de</a></li>
-				<li><a href="#">Contacto</a></li>
-			</ul>
-		</nav>
-	</header>
+<body style="background: #d8b6b6;">
+ <div class="login">
+	<h1 style="color:hsl(226, 64%, 13%);">Recomendador de Restaurantes</h1>
 
-	<main>
-		<h2>Título principal</h2>
-		<p>Contenido principal de la página.</p>
-	</main>
 
-	<footer>
-		<p>Derechos de autor © 2023. Todos los derechos reservados.</p>
-	</footer>
+     <!-- Action is where the data is sent. In our case, predict page.
+     If action is omitted, it assumed to be the current page -->
+
+    <form action="{{ url_for('predict')}}"method="post">
+    	<input type="text" name="Restaurante visitado" placeholder="Restaurante visitado" required="required" /><br>
+		<br>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Obtener Restaurante</button></p>
+    </form>
+
+   <br>
+   <br>
+   <h4 style="color: hsl(226, 64%, 13%);"> {{ prediction_text }} </h4>
+
+ </div>
+
 
 </body>
 </html>
