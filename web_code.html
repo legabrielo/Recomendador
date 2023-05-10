@@ -8,9 +8,9 @@
   
   <title>Recomendador Restaurantes</title>
   
-</head>
+</head>   
 
-<body style="background: #d8b6b6;">
+<body style="background: #e9bebe;">
  <div class="login">
 	<h1 style="color:hsl(226, 64%, 13%);">Recomendador de Restaurantes</h1>
 
@@ -18,7 +18,7 @@
      <!-- Action is where the data is sent. In our case, predict page.
      If action is omitted, it assumed to be the current page -->
 
-    <form action="{{ url_for('predict')}}"method="post">
+    <form action="{{ url_for('/recom')}}" method="post">
     	<input type="text" name="Restaurante visitado" placeholder="Restaurante visitado" required="required" /><br>
 		<br>
 
