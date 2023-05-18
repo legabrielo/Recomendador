@@ -14,27 +14,28 @@ from sklearn.neighbors import NearestNeighbors, KNeighborsClassifier
 app = Flask(__name__)
 
 # Cargamos el modelo 
-modelo = pickle.load(open(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\Modelo_Restaurantes.pkl', 'rb'))
+modelo = pickle.load(open(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\models\Modelo_Restaurantes.pkl', 'rb'))
 
 # Descargamos el dataframe 
 restau = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\res.csv')
-
+features = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\features.csv')
 
 @app.route('/')
 def home():
     return render_template('web_code.html')
 
-@app.route('/recom', methods=['POST', 'GET'])
+@app.route('/recom', methods=['POST'])
 def recom():
-    
     int_features = [int(x) for x in request.form.values()]
-    numero = [np.array(int_features)] 
-    pred = modelo.kneighbors(restau.iloc[[numero]])
-    output = restau.loc[pred[0][1:4], :]
-
-    return render_template('web_code.html', prediction_text ='Restaurantes recomendados = {}'.format(output) )
-
-
+    numero = [np.array(int_features)]
+    dif, ind = modelo.kneighbors(features.iloc[numero[0]])
+    indices_recomendados = restau.loc[ind[0][1:5], :]  # Obtener los índices de los restaurantes recomendados
+    
+    # Convertir el dataframe a HTML
+    recomendados_html = indices_recomendados.to_html()
+    
+    # Renderizar el template 'web_code.html' y pasar los datos de los restaurantes recomendados a la plantilla
+    return render_template('web_code.html', prediction_text = recomendados_html)
 
 if __name__ == "__main__":
-    app.run()
+    app.run()       
