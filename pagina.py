@@ -7,25 +7,34 @@
 import numpy as np
 from flask import Flask, request, render_template 
 import pickle 
+import pandas as pd 
+from sklearn.neighbors import NearestNeighbors, KNeighborsClassifier
 
 # Creamos el objeto 
 app = Flask(__name__)
 
 # Cargamos el modelo 
-modelo = pickle.load(open('ML Restaurantes/Modelo_Restaurantes.pkl', 'rb'))
+modelo = pickle.load(open(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\Modelo_Restaurantes.pkl', 'rb'))
+
+# Descargamos el dataframe 
+restau = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\res.csv')
+
 
 @app.route('/')
 def home():
-    render_template('web_code.html')
+    return render_template('web_code.html')
 
-@app.route('/recom', methods=['POST'])
+@app.route('/recom', methods=['POST', 'GET'])
 def recom():
-    int_features = [float(x) for x in request.form.values()]
-    features = [np.array(int_features)]
-    recomendado = modelo
+    
+    int_features = [int(x) for x in request.form.values()]
+    numero = [np.array(int_features)] 
+    pred = modelo.kneighbors(restau.iloc[[numero]])
+    output = restau.loc[pred[0][1:4], :]
 
-    return render_template('web_code.html', prediction_text = 'Restaurante Recomendado {}'.format(recomendado))
+    return render_template('web_code.html', prediction_text ='Restaurantes recomendados = {}'.format(output) )
 
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
+if __name__ == "__main__":
+    app.run()
