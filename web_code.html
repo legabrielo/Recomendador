@@ -1,36 +1,260 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
   <meta charset="UTF-8">
   
-  <!-- Make it compatible to mobile devices -->
+  <!-- Make it compatible with mobile devices -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Recomendador Restaurantes</title>
   
+  <!-- Custom styles -->
+  <style>    
+    body {
+      background: #e9bebe;
+      font-family: 'Arial', sans-serif; 
+    }
+    
+    
+    h1 {
+      text-align: center;
+      color: #450b0b; 
+      font-size: 30px; 
+    }
+
+    .Descr{
+      background-color: #ffffff; 
+      border: 1px solid #450b0b; 
+      border-radius: 10px; 
+      padding: 5px; 
+      text-align: center; 
+      margin-top: 20px; 
+      margin-bottom: 20px; 
+      max-width: auto; 
+      margin-left: auto; 
+      margin-right: auto; 
+
+    }
+ 
+    .prediction-box {
+      background-color: #ffffff; 
+      border: 1px solid #450b0b; 
+      border-radius: 10px; 
+      padding: 5px; 
+      text-align: center; 
+      margin-top: 20px; 
+      max-width: 250px; 
+      margin-left: auto; 
+      margin-right: auto; 
+    }
+
+    p {
+      text-align: center; 
+      margin: 5px 0;
+      text-size-adjust: auto;
+    }
+
+    .Res{
+      text-align: left;
+    }
+
+    .content {
+    display: flex;
+    flex-wrap: wrap;  
+    }
+
+    .content img {
+    width: 25%;
+    min-width: 100px;
+    }
+
+    .Pred{
+      font-size: 14px;
+      color: #808080;
+    }
+
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .gallery-item {
+      background-color: transparent;
+      width: 200px;
+      height: 200px;
+      perspective: 100px;
+      margin: 10px;
+    }
+
+    .flip-card {
+      background-color: transparent;
+      width: 200px;
+      height: 200px;
+      perspective: 1000px;
+    } 
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    .flip-card-front {
+      background-color: #bbb;
+      color: black;
+    }
+
+    .flip-card-back {
+      background-color: #2980b9;
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+
+  </style>
 </head>   
 
-<body style="background: #e9bebe;">
- <div class="login">
-	<h1 style="color:hsl(226, 64%, 13%);">Recomendador de Restaurantes</h1>
+<body>
+  <div class="login">
+    <h1>Restaurantes Michelin</h1>
 
+    <div class="Descr">
+      <p>Esta página es un recomendador para los restaurantes que aparecen en la Guía Michelin Madrid 2023. </p>
+      <p>La idea es elegir uno de los 163 restaurantes que aparecen en la guía y se te recomendará un restuarante parecido teniendo encuenta las características:
+          precio, estilo de comida, estrellas michelin etc. </p>
+      <p> Creado por <a href="https://www.linkedin.com/in/gabriel-castillo-rodriguez/" target="_blank">Gabriel Castillo.</a></p>
+    </div>
 
-     <!-- Action is where the data is sent. In our case, predict page.
-     If action is omitted, it assumed to be the current page -->
+    
 
-    <form action="{{ url_for('/recom')}}" method="post">
-    	<input type="text" name="Restaurante visitado" placeholder="Restaurante visitado" required="required" /><br>
-		<br>
+    <form action="{{ url_for('recom')}}" method="post">
+      <p class="Res"><input type="text" name="Restaurante visitado" placeholder="Restaurante visitado" required="required" /><br><br></p>
 
-        <button type="submit" class="btn btn-primary btn-block btn-large">Obtener Restaurante</button></p>
+      <button type="submit" class="btn btn-primary btn-block btn-large">Obtener Restaurante</button></p>
     </form>
 
-   <br>
-   <br>
-   <h4 style="color: hsl(226, 64%, 13%);"> {{ prediction_text }} </h4>
+    <div class="gallery-container" id="imageGallery">
+      
+    </div>
 
- </div>
+    <div class="prediction-box">
+      <h4>Tu restaurante favorito es</h4>
+      <p class="Pred">{{ prediction_text }}</p>
+    </div>
 
 
+  </div>
+
+  <script>
+    // JavaScript code to add four columns with four rows of photos dynamically
+    function addGalleryItem(imageUrl, name, description) {
+      const galleryContainer = document.getElementById('imageGallery');
+  
+      const flipCard = document.createElement('div');
+      flipCard.classList.add('gallery-item', 'flip-card'); // Add flip-card class here
+      galleryContainer.appendChild(flipCard);
+  
+      const flipCardInner = document.createElement('div');
+      flipCardInner.classList.add('flip-card-inner'); // Add flip-card-inner class here
+      flipCard.appendChild(flipCardInner);
+  
+      const flipCardFront = document.createElement('div');
+      flipCardFront.classList.add('flip-card-front'); // Add flip-card-front class here
+      flipCardInner.appendChild(flipCardFront);
+  
+      const img = document.createElement('img');
+      img.src = imageUrl;
+      img.alt = name;
+      img.style.width = '100%';
+      img.style.height = '100%';
+      flipCardFront.appendChild(img);
+  
+      const flipCardBack = document.createElement('div');
+      flipCardBack.classList.add('flip-card-back'); // Add flip-card-back class here
+      flipCardInner.appendChild(flipCardBack);
+  
+      const h1 = document.createElement('h1');
+      h1.textContent = name;
+      flipCardBack.appendChild(h1);
+  
+      const p1 = document.createElement('p');
+      p1.textContent = description;
+      flipCardBack.appendChild(p1);
+    }
+  
+    // Call the addGalleryItem function to populate the gallery
+    addGalleryItem("img_avatar1.png", "John Doe 1", "Architect & Engineer 1");
+    addGalleryItem("img_avatar2.png", "John Doe 2", "Architect & Engineer 2");
+    addGalleryItem("img_avatar3.png", "John Doe 3", "Architect & Engineer 3");
+    addGalleryItem("img_avatar4.png", "John Doe 4", "Architect & Engineer 4");
+    addGalleryItem("img_avatar4.png", "John Doe 5", "Architect & Engineer 5");
+    addGalleryItem("img_avatar4.png", "John Doe 6", "Architect & Engineer 6");
+    // Add more images using addGalleryItem as needed.
+  </script>
+  
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<div class="Info">
+  <div class="content">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+  </div>
+
+  <div class="content">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+  </div>
+
+  <div class="content">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+  </div>
+
+  <div class="content">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+    <img src="path/to/photo1.jpg" alt="Photo 1">
+  </div>
+</div> -->
