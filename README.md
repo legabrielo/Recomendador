@@ -17,6 +17,7 @@ Para el despliegue del recomendador se uso flask.
 
 ### Front end:
    1. Intentaré mejorar la página básica de HTML para que sea más user friendly. Colores más bonitos y que la recomendación dada se pueda entender :)
+   2. Que la respuesta se vea de mejor manera.
 ### Back end:
    1. Buscar otro sistema para desplegar en la web el recomendador (Más que todo para cuando haga el post en LinkedIn)
    2. Dudando si cambiar las métricas para hacer la recomendación (Hay otras variables que hay que tener en cuenta : Si el usuario es nuevo, los features, la distancia etc)
