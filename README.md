@@ -20,5 +20,5 @@ Para el despliegue del recomendador se uso flask.
 ### Back end:
    1. Buscar otro sistema para desplegar en la web el recomendador (Más que todo para cuando haga el post en LinkedIn)
    2. Dudando si cambiar las métricas para hacer la recomendación (Hay otras variables que hay que tener en cuenta : Si el usuario es nuevo, los features, la distancia etc)
-   3. 
+
    
