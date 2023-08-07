@@ -32,7 +32,7 @@ def recom():
     indices_recomendados = restau.loc[ind[0][1:5], :]  # Obtener los índices de los restaurantes recomendados
     
     # Convertir el dataframe a HTML
-    recomendados_html = indices_recomendados.to_html()
+    recomendados_html = indices_recomendados['Nombres'].tolist()
     
     # Renderizar el template 'web_code.html' y pasar los datos de los restaurantes recomendados a la plantilla
     return render_template('web_code.html', prediction_text = recomendados_html)
