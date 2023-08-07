@@ -12,3 +12,13 @@ Para el html utilizamos un template muy básico que simplemente pide que pongas 
 *Nota* -- La idea es mejorar como se ve la página para que sea mas atractivo al usuario y se vean los restaurantes para que la gente sepa cuál fue al que acudió. 
 
 Para el despliegue del recomendador se uso flask.
+
+## Próximas actualizaciones:
+
+### Front end:
+   1. Intentaré mejorar la página básica de HTML para que sea más user friendly. Colores más bonitos y que la recomendación dada se pueda entender :)
+### Back end:
+   1. Buscar otro sistema para desplegar en la web el recomendador (Más que todo para cuando haga el post en LinkedIn)
+   2. Dudando si cambiar las métricas para hacer la recomendación (Hay otras variables que hay que tener en cuenta : Si el usuario es nuevo, los features, la distancia etc)
+   3. 
+   
