@@ -2,24 +2,42 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  
-  <!-- Make it compatible with mobile devices -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Recomendador Restaurantes</title>
   
-  <!-- Custom styles -->
-  <style>    
-    body {
-      background: #e9bebe;
-      font-family: 'Arial', sans-serif; 
+  <!-- Parte CSS para modificar los estilos de cada Div -->
+  <style>
+    .left-column, .right-column {
+      flex: 0 0 10%; 
+      position: relative;
+      background-color: #ffffff;
+      height: auto;
     }
-    
-    
+
     h1 {
       text-align: center;
       color: #450b0b; 
       font-size: 30px; 
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      min-height: 100vh;
+      background-color: #f0f8ff;
+      font-family: 'Arial', sans-serif; 
+      overflow: auto;
+    }
+
+    .main-content{
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: visible;
+      height: auto;
+      background-color: red;
     }
 
     .Descr{
@@ -30,7 +48,7 @@
       text-align: center; 
       margin-top: 20px; 
       margin-bottom: 20px; 
-      max-width: auto; 
+      max-width: 80%; 
       margin-left: auto; 
       margin-right: auto; 
 
@@ -56,27 +74,22 @@
 
     .Res{
       text-align: left;
-    }
-
-    .content {
-    display: flex;
-    flex-wrap: wrap;  
-    }
-
-    .content img {
-    width: 25%;
-    min-width: 100px;
+      margin: 10px 0 0 10px;
     }
 
     .Pred{
       font-size: 14px;
       color: #808080;
+      list-style-type: decimal;
     }
 
     .gallery-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
+      width: 90%;
+      margin: 0 auto;
+      background-color: red;
     }
 
     .gallery-item {
@@ -127,56 +140,80 @@
       transform: rotateY(180deg);
     }
 
+    
+
+    
 
   </style>
 </head>   
 
-<body>
-  <div class="login">
-    <h1>Restaurantes Michelin</h1>
+<!-- Creamos el body para la informacion: los restaurantes, la info de quien lo hizo (yo), y el título -->
 
-    <div class="Descr">
-      <p>Esta página es un recomendador para los restaurantes que aparecen en la Guía Michelin Madrid 2023. </p>
-      <p>La idea es elegir uno de los 163 restaurantes que aparecen en la guía y se te recomendará un restuarante parecido teniendo encuenta las características:
-          precio, estilo de comida, estrellas michelin etc. </p>
-      <p> Creado por <a href="https://www.linkedin.com/in/gabriel-castillo-rodriguez/" target="_blank">Gabriel Castillo.</a></p>
+<body>
+  
+  <div class="left-column"></div>
+
+    <div class="main-content">
+
+      <h1>Restaurantes Michelin</h1>
+
+      <div class="Descr">
+
+        <p>Esta página es un recomendador para los restaurantes que aparecen en la Guía Michelin Madrid 2023. </p>
+        <p>La idea es elegir uno de los 163 restaurantes que aparecen en la guía y se te recomendará un restuarante parecido teniendo encuenta las características:
+            precio, estilo de comida, estrellas michelin etc. </p>
+        <p> Creado por <a href="https://www.linkedin.com/in/gabriel-castillo-rodriguez/" target="_blank">Gabriel Castillo.</a></p>
+        <p> Para más información visita <a href="https://github.com/legabrielo/Recomendador" target="_blank">el código.</a></p>
+      
+      </div>
+
+      <div class="gallery-container" id="imageGallery"> 
+      </div>
+
+      <form action="{{ url_for('recom')}}" method="post">
+
+        <p class="Res"><input type="text" name="Restaurante visitado" placeholder="Restaurante visitado" required="required" /><br><br></p>
+
+        <button type="submit" class="btn btn-primary btn-block btn-large">Obtener Restaurante</button></p>
+      </form>
+
+  
+
+      <div class="prediction-box">
+
+        <h4>Restaurante Recomendado</h4>
+
+          <ol><p class="Pred"></p>
+
+            {% for restaurant_name in prediction_text %}
+            <li class="Pred">{{ restaurant_name }}</li>
+
+            {% endfor %}
+
+          </ol>
+
+      </div>
+    
     </div>
 
+  <div class="right-column"></div>
     
 
-    <form action="{{ url_for('recom')}}" method="post">
-      <p class="Res"><input type="text" name="Restaurante visitado" placeholder="Restaurante visitado" required="required" /><br><br></p>
-
-      <button type="submit" class="btn btn-primary btn-block btn-large">Obtener Restaurante</button></p>
-    </form>
-
-    <div class="gallery-container" id="imageGallery">
-      
-    </div>
-
-    <div class="prediction-box">
-      <h4>Tu restaurante favorito es</h4>
-      <p class="Pred">{{ prediction_text }}</p>
-    </div>
-
-
-  </div>
-
   <script>
-    // JavaScript code to add four columns with four rows of photos dynamically
+    // JS para añadir las 4 fotos y y que se den la vuelta
     function addGalleryItem(imageUrl, name, description) {
       const galleryContainer = document.getElementById('imageGallery');
   
       const flipCard = document.createElement('div');
-      flipCard.classList.add('gallery-item', 'flip-card'); // Add flip-card class here
+      flipCard.classList.add('gallery-item', 'flip-card'); 
       galleryContainer.appendChild(flipCard);
   
       const flipCardInner = document.createElement('div');
-      flipCardInner.classList.add('flip-card-inner'); // Add flip-card-inner class here
+      flipCardInner.classList.add('flip-card-inner');
       flipCard.appendChild(flipCardInner);
   
       const flipCardFront = document.createElement('div');
-      flipCardFront.classList.add('flip-card-front'); // Add flip-card-front class here
+      flipCardFront.classList.add('flip-card-front'); 
       flipCardInner.appendChild(flipCardFront);
   
       const img = document.createElement('img');
@@ -187,7 +224,7 @@
       flipCardFront.appendChild(img);
   
       const flipCardBack = document.createElement('div');
-      flipCardBack.classList.add('flip-card-back'); // Add flip-card-back class here
+      flipCardBack.classList.add('flip-card-back'); 
       flipCardInner.appendChild(flipCardBack);
   
       const h1 = document.createElement('h1');
@@ -198,63 +235,18 @@
       p1.textContent = description;
       flipCardBack.appendChild(p1);
     }
-  
-    // Call the addGalleryItem function to populate the gallery
+    
+
     addGalleryItem("img_avatar1.png", "John Doe 1", "Architect & Engineer 1");
     addGalleryItem("img_avatar2.png", "John Doe 2", "Architect & Engineer 2");
     addGalleryItem("img_avatar3.png", "John Doe 3", "Architect & Engineer 3");
     addGalleryItem("img_avatar4.png", "John Doe 4", "Architect & Engineer 4");
-    addGalleryItem("img_avatar4.png", "John Doe 5", "Architect & Engineer 5");
-    addGalleryItem("img_avatar4.png", "John Doe 6", "Architect & Engineer 6");
+    addGalleryItem("img_avatar5.png", "John Doe 5", "Architect & Engineer 5");
+    addGalleryItem("img_avatar6.png", "John Doe 6", "Architect & Engineer 6");
+    
+
     // Add more images using addGalleryItem as needed.
   </script>
   
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 
-<div class="Info">
-  <div class="content">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-  </div>
-
-  <div class="content">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-  </div>
-
-  <div class="content">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-  </div>
-
-  <div class="content">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-    <img src="path/to/photo1.jpg" alt="Photo 1">
-  </div>
-</div> -->
