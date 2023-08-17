@@ -44,10 +44,9 @@ def main():
     st.button("Restaurantes Recomendados")
     num_recom = 4
     liked_restaurant = filtered_res.iloc[0]
-    # st.subheader('Restaurante elegido')
-    print(liked_restaurant)
     num_recom = 4
     _, ind = modelo.kneighbors(features.iloc[[liked_restaurant.name]])
+    
     st.subheader('Recommended Restaurants')
     rec_indices = ind[0][0:num_recom]
     rec_resta = res.iloc[rec_indices, :]
@@ -59,26 +58,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-  # Get recommendations using NearestNeighbors
-            # Cambiamos el tipo de dataframe 
-            # filtered_array = np.asarray(filtered_res)
-            # print('This is filtered array:', filtered_array)
-            # filtered_array_numpy = filtered_array.reshape(1,-1)
-            # print('This is filtered array numpy:', filtered_array_numpy)
-            # _, ind = modelo.kneighbors(features.iloc[filtered_array_numpy])
-
-            # # Print statements for troubleshooting
-            # print("Indices array:", ind)  # Print the content of the indices array
-            
-            # recommended_indices = ind[1][1:]  # Skip the first index since it's the liked restaurant
-            # print("Recommended indices:", recommended_indices)  # Print the recommended indices
-            
-            # st.subheader('Liked Restaurant')
-            # st.write("=" * 60)
-            # liked_index = recommended_indices[0]
-            # res.iloc[filtered_array_numpy[liked_index], :]
-
-            # st.subheader('Recommended Restaurants')
-            # st.write("=" * 60)
-            # recommended_restaurants = res.loc[filtered_array_numpy[recommended_indices], :]
-            # st.write(recommended_restaurants)
