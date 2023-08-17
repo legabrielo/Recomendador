@@ -8,6 +8,7 @@ Aplicación hecha con streamlit
 import streamlit as st
 import pandas as pd
 import numpy as np
+import sklearn
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.neighbors import NearestNeighbors
 import pickle 
