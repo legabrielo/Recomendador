@@ -8,6 +8,7 @@ Aplicación hecha con streamlit
 import streamlit as st
 import pandas as pd
 import numpy as np
+
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.neighbors import NearestNeighbors
 import pickle 
@@ -25,33 +26,41 @@ modelo = pickle.load(open(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML R
 
 print(res.index.values)
 
+def dar_restaurante(filtered_res):
+            liked_restaurant = filtered_res.iloc[0]
+            print(liked_restaurant)
+            num_recom = 8
+            _, ind = modelo.kneighbors(features.iloc[[liked_restaurant.name]])
+        
+            st.subheader('Recommended Restaurants')
+            rec_indices = ind[0][0:num_recom]
+            rec_resta = res.iloc[rec_indices, :]
+            st.write(rec_resta)
+
 def main():
     st.title("Recomendador Guía Michelin Madrid 2023")
 
-    # User inputs for preferences
     selected_style = st.selectbox("Seleccione estilo:", res['Estilo'].unique().astype(str))
     selected_price = st.selectbox("Seleccione precio:", res['Precio'].unique().astype(str))
 
-    # Filter restaurants based on user preferences
     filtered_res = res[
         (res['Estilo'] == selected_style) &
         (res['Precio'] == selected_price) 
     ]
 
+    
     print('This is filtered res:' '\n', filtered_res)
-    
-    st.button("Restaurantes Recomendados")
-    num_recom = 4
-    liked_restaurant = filtered_res.iloc[0]
-    num_recom = 4
-    _, ind = modelo.kneighbors(features.iloc[[liked_restaurant.name]])
-    
-    st.subheader('Recommended Restaurants')
-    rec_indices = ind[0][0:num_recom]
-    rec_resta = res.iloc[rec_indices, :]
-    st.write(rec_resta)
+    # Añadir aquí un buclque para que primero pono ponga nada (done)
 
-    
+    if filtered_res.empty:
+        if st.button("Obtener restaurantes"):
+            st.write('No hay recomendación todavía')
+    else:
+        if st.button("Obtener restaurantes"):
+            dar_restaurante(filtered_res)
+         
+
+        
 
 
 if __name__ == "__main__":
