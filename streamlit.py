@@ -16,8 +16,8 @@ import pickle
 
 # Descargamos el dataframe 
 # print("Current Working Directory:", os.getcwd())
-features = pd.read_csv(r'ML Restaurantes\features.csv')
-res = pd.read_csv(r'Data\res.csv')
+features = pd.read_csv(r'features.csv')
+res = pd.read_csv(r'res.csv')
 
 # Cargamos el modelo 
 modelo = pickle.load(open('Modelo_Restaurantes.pkl', 'rb'))
