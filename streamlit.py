@@ -20,7 +20,7 @@ import pickle
 # res = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\Data\res.csv')
 
 # Cargamos el modelo 
-modelo = pickle.load(open(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\models\Modelo_Restaurantes.pkl', 'rb'))
+modelo = pickle.load(open('Modelo_Restaurantes.pkl', 'rb'))
 
 
 print(res.index.values)
