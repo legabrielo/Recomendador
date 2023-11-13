@@ -16,7 +16,8 @@ import pickle
 
 # Descargamos el dataframe 
 print("Current Working Directory:", os.getcwd())
-features = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\features.csv')
+path_features = os.path.dirname(__file__)
+features = path_features+'/features.csv'
 res = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\Data\res.csv')
 
 # Cargamos el modelo 
