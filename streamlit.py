@@ -21,16 +21,21 @@ features = path_features+'/features.csv'
 path_features = os.path.dirname(__file__)
 res = path_features+'/res.csv'
 
-# Cargamos el modelo 
+# Get the directory of the current script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
 # Specify the relative path to the pickled model
 model_path = os.path.join(script_dir, 'models', 'Modelo_Restaurantes.pkl')
 
-# Load the pickled model
-with open(model_path, 'rb') as model_file:
-    modelo = pickle.load(model_file)
-
+# Load the pickled model with error handling
+try:
+    with open(model_path, 'rb') as model_file:
+        modelo = pickle.load(model_file)
+    st.success("Model loaded successfully.")
+except FileNotFoundError:
+    st.error(f"Model file not found at path: {model_path}")
+except Exception as e:
+    st.error(f"Error loading model: {e}")
 
 print(res.index.values)
 
