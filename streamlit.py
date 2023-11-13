@@ -8,17 +8,16 @@ Aplicación hecha con streamlit
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+import os 
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.neighbors import NearestNeighbors
 import pickle 
 
 
 # Descargamos el dataframe 
-res = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\res.csv')
+print("Current Working Directory:", os.getcwd())
 features = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\features.csv')
-
-res = res.drop(columns='Unnamed: 0')
+res = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\Data\res.csv')
 
 # Cargamos el modelo 
 modelo = pickle.load(open(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\models\Modelo_Restaurantes.pkl', 'rb'))
