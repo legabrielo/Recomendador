@@ -34,7 +34,6 @@ def dar_restaurante(filtered_res):
             st.subheader('Recommended Restaurants')
             rec_indices = ind[0][0:num_recom]
             rec_resta = res.iloc[rec_indices, :]
-            rec_resta = rec_resta[1::]
             st.write(rec_resta)
 
 def main():
