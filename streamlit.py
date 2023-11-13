@@ -15,29 +15,15 @@ import pickle
 
 
 # Descargamos el dataframe 
-print("Current Working Directory:", os.getcwd())
-path_features = os.path.dirname(__file__)
-features = path_features+'/features.csv'
-path_features = os.path.dirname(__file__)
-res = path_features+'/res.csv'
+# print("Current Working Directory:", os.getcwd())
+# features = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\features.csv')
+# res = pd.read_csv(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\Data\res.csv')
 
-# Get the directory of the current script
-script_dir = os.path.dirname(os.path.abspath(__file__))
+# Cargamos el modelo 
+modelo = pickle.load(open(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\models\Modelo_Restaurantes.pkl', 'rb'))
 
-# Specify the relative path to the pickled model
-model_path = os.path.join(script_dir, 'models', 'Modelo_Restaurantes.pkl')
 
-# Load the pickled model with error handling
-try:
-    with open(model_path, 'rb') as model_file:
-        modelo = pickle.load(model_file)
-    st.success("Model loaded successfully.")
-except FileNotFoundError:
-    st.error(f"Model file not found at path: {model_path}")
-except Exception as e:
-    st.error(f"Error loading model: {e}")
-
-# print(res.index.values)
+print(res.index.values)
 
 def dar_restaurante(filtered_res):
             liked_restaurant = filtered_res.iloc[0]
