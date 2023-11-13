@@ -22,7 +22,14 @@ path_features = os.path.dirname(__file__)
 res = path_features+'/res.csv'
 
 # Cargamos el modelo 
-modelo = pickle.load(open(r'C:\Users\Gabriel Castillo\Desktop\Cosas Gabriel\ML Restaurantes\models\Modelo_Restaurantes.pkl', 'rb'))
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Specify the relative path to the pickled model
+model_path = os.path.join(script_dir, 'models', 'Modelo_Restaurantes.pkl')
+
+# Load the pickled model
+with open(model_path, 'rb') as model_file:
+    modelo = pickle.load(model_file)
 
 
 print(res.index.values)
