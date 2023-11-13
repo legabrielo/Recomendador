@@ -18,12 +18,12 @@ import pickle
 # print("Current Working Directory:", os.getcwd())
 features = pd.read_csv(r'features.csv')
 res = pd.read_csv(r'res.csv')
-# res = res.drop('Unnamed: 0')
+
 # Cargamos el modelo 
 modelo = pickle.load(open('Modelo_Restaurantes.pkl', 'rb'))
 
 
-print(res.index.values)
+
 
 def dar_restaurante(filtered_res):
             liked_restaurant = filtered_res.iloc[0]
@@ -34,6 +34,7 @@ def dar_restaurante(filtered_res):
             st.subheader('Recommended Restaurants')
             rec_indices = ind[0][0:num_recom]
             rec_resta = res.iloc[rec_indices, :]
+            rec_resta = rec_resta[1::]
             st.write(rec_resta)
 
 def main():
