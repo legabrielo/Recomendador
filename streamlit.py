@@ -18,7 +18,7 @@ import pickle
 # print("Current Working Directory:", os.getcwd())
 features = pd.read_csv(r'features.csv')
 res = pd.read_csv(r'res.csv')
-res = res.drop('Unnamed: 0')
+# res = res.drop('Unnamed: 0')
 # Cargamos el modelo 
 modelo = pickle.load(open('Modelo_Restaurantes.pkl', 'rb'))
 
