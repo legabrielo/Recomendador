@@ -37,7 +37,7 @@ except FileNotFoundError:
 except Exception as e:
     st.error(f"Error loading model: {e}")
 
-print(res.index.values)
+# print(res.index.values)
 
 def dar_restaurante(filtered_res):
             liked_restaurant = filtered_res.iloc[0]
