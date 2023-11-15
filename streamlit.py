@@ -57,10 +57,11 @@ def main():
     else:
         if st.button("Obtener restaurantes"):
             dar_restaurante(filtered_res)
+
+    st.write('Para revisar el código visita mi [Github](https://github.com/legabrielo/Recomendador)')
          
 
         
-
 
 if __name__ == "__main__":
     main()
