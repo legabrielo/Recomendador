@@ -58,7 +58,7 @@ def main():
         if st.button("Obtener restaurantes"):
             dar_restaurante(filtered_res)
 
-    st.write('Para revisar el código visita mi [Github](https://github.com/legabrielo/Recomendador)')
+    st.write('Para revisar el código visita mi 	[Github](https://github.com/legabrielo/Recomendador) :wink:')
          
 
         
