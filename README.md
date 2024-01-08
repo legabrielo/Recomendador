@@ -3,9 +3,9 @@
 Este es el prototipo para un recomendador de la guía Michelin en Madrid. 
 Hay 2 propuestas para este recomendador. 
 
-  **1.** El primer recomendador se desplegó con Flask. Inicialmente este era que se utilizaría para la publicación de LinkedIn pero me encontré con problemas a la hora de mostrarlo en Internet. Los códigos para este recomendador son web_code.html, pagina.py . En estos se puede ver el proceso con selenium, la creación del OHE y del filtrado colaborativo para ver cómo hacer el proyecto.
+  **1.** El primer recomendador se desplegó con Flask. Inicialmente este era el modelo que se utilizaría para la publicación de LinkedIn pero me encontré con problemas a la hora de deplegarlo. Los códigos para este recomendador son web_code.html, pagina.py . En estos se puede ver el proceso de webscrapping con selenium, la creación del OHE y del filtrado colaborativo para ver cómo hacer el proyecto.
      
-  **2.** El segundo recomendador se desplegó en Streamlit. Tomé esta decisión después de buscar nuevas alternativas para compartir de manera más fácil el proyecto. Se añadieron nuevas características para que los usuarios pudiesen personalizar la selección de comensales, estilo de comida, precio y evento (que era la idea original). Se mejoró la 
+  **2.** El segundo recomendador se desplegó en Streamlit. Tomé esta decisión después de buscar nuevas alternativas para compartir de manera más fácil el proyecto. Se añadieron nuevas características para que los usuarios pudiesen personalizar el estilo de comida y el precio.
 
 
 
@@ -20,16 +20,13 @@ Hay 2 propuestas para este recomendador.
 
 ## Así se hizo el Recomendador en Streamlit: 
 
-  **1.** Se hizo un Webscrap de la página de la Guía Michelin en Madrid con la librería Selenium. 
+  **1.** Utilizando la información conseguida para crear el Recomendandor en Flask se pasó a Streamlit y pudimos desplegar el modelo sin problema.
   
 ## Próximas actualizaciones:
 
 ### Front end:
-   1. Intentaré mejorar la página básica de HTML para que sea más user friendly. Colores más bonitos y que la recomendación dada se pueda entender :) (Listo)
-   2. Que la respuesta se vea de mejor manera. (listo)
+   1. Añadiré un mapa de Madrid para que se vea donde están ubicados los restaurantes
       
-### Back end:
-   1. Se va a cambiar de Flask a Streamlit
-   2. Dudando si cambiar las métricas para hacer la recomendación (Hay otras variables que hay que tener en cuenta : Si el usuario es nuevo, los features, la distancia etc)
+
 
    
